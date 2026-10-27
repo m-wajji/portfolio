@@ -32,7 +32,7 @@ cp .env.example .env        # add your GROQ_API_KEY
 1. Push this folder to a new GitHub repo (the `.gitignore` keeps `.env`, PDFs, the DISC report and raw model weights out).
 2. On [vercel.com](https://vercel.com) → **Add New → Project** → import the repo. Framework preset: **Other**. `vercel.json` already sets the build.
 3. In **Settings → Environment Variables** add `GROQ_API_KEY`.
-4. Deploy → `https://<project>.vercel.app`. Rename the project to `muhammadwajahat` to get `muhammadwajahat.vercel.app`.
+4. Deploy → `https://<project>.vercel.app`. This site lives at `muhammadwajahat-psi.vercel.app` (Vercel adds a suffix when a name is taken).
 5. Optional free custom subdomain: open a PR to [is-a-dev/register](https://github.com/is-a-dev/register) adding `domains/muhammadwajahat.json` with a CNAME to `cname.vercel-dns.com`, then add the domain in Vercel → Domains. Write the PR yourself — AI-written PRs are rejected.
 
 If you change the domain, update `site_url` in `content/profile.yaml`.

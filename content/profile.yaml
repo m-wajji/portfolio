@@ -12,7 +12,7 @@ email: muhammad.wajahat221@gmail.com
 # Web3Forms access key (free, from web3forms.com). It's meant to be public: it can only send to your inbox.
 # Leave empty and the form falls back to opening the visitor's email app.
 contact_form_key: "e6e39b1b-db50-4f5d-ba2a-42d76e8ace96"
-site_url: https://muhammadwajahat.vercel.app
+site_url: https://muhammadwajahat-psi.vercel.app
 description: >-
   Muhammad Wajahat — AI Engineer building LangGraph agents, RAG assistants and
   computer vision systems. Based in Karachi, open to remote and freelance work.
