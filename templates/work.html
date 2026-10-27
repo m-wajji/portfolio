@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% from "partials/icons.html" import icon %}
+{% block title %}{{ p.title }} — {{ profile.name }}{% endblock %}
+{% block description %}{{ p.summary | trim }}{% endblock %}
+{% block body_class %}page-work{% endblock %}
+
+{% block body %}
+<main id="main" class="article">
+  <a class="back" href="/#work">{{ icon('back', 16) }} All work</a>
+  <header class="article-head">
+    <p class="eyebrow">{{ p.org }} · {{ p.year }}</p>
+    <h1>{{ p.title }}</h1>
+    <p class="lead">{{ p.summary }}</p>
+    {% if p.metrics %}
+    <ul class="proof compact">
+      {% for m in p.metrics %}<li><strong>{{ m.value }}</strong><span>{{ m.label }}</span></li>{% endfor %}
+    </ul>
+    {% endif %}
+    <div class="feature-links">
+      {% for l in p.links or [] %}
+      <a class="btn{{ ' primary' if loop.first }}" href="{{ '/' ~ l.url if l.url.startswith('#') else l.url }}" {% if l.url.startswith('http') %}target="_blank" rel="noopener"{% endif %}>{{ l.label }} {{ icon('arrow', 14) }}</a>
+      {% endfor %}
+      {% if p.badge %}<span class="badge">{{ icon('lock', 12) }} {{ p.badge }}</span>{% endif %}
+    </div>
+    <ul class="tags">{% for s in p.stack %}<li>{{ s }}</li>{% endfor %}</ul>
+  </header>
+
+  <article class="prose">
+    {{ body | safe }}
+  </article>
+
+  <nav class="next-work" aria-label="More case studies">
+    {% for o in others %}
+    <a class="card" href="/work/{{ o.slug }}/">
+      <span class="eyebrow">Next case study</span>
+      <strong>{{ o.title }}</strong>
+      <span>{{ o.org }}</span>
+    </a>
+    {% endfor %}
+  </nav>
+  <footer class="site-footer"><p><a href="/">← {{ profile.name }}</a> · <a href="mailto:{{ profile.email }}">{{ profile.email }}</a></p></footer>
+</main>
+{% endblock %}

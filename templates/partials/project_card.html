@@ -1,0 +1,28 @@
+{% from "partials/icons.html" import icon %}
+{% macro project_card(p) -%}
+<article class="card project reveal" data-tags="{{ p.tags | join('|') }}">
+  <header>
+    <p class="eyebrow">{{ p.org }}{% if p.year %} · {{ p.year }}{% endif %}</p>
+    <h3>
+      {% if p.featured %}<a href="/work/{{ p.slug }}/">{{ p.title }}</a>{% else %}{{ p.title }}{% endif %}
+    </h3>
+  </header>
+  <p>{{ p.summary }}</p>
+  {% if p.metrics %}
+  <ul class="metrics">
+    {% for m in p.metrics %}<li><strong>{{ m.value }}</strong> <span>{{ m.label }}</span></li>{% endfor %}
+  </ul>
+  {% endif %}
+  {% if p.lesson %}<p class="lesson"><span>Lesson</span> {{ p.lesson }}</p>{% endif %}
+  <ul class="tags" aria-label="Tech stack">
+    {% for s in p.stack %}<li>{{ s }}</li>{% endfor %}
+  </ul>
+  <footer>
+    {% if p.featured %}<a class="link" href="/work/{{ p.slug }}/">Case study {{ icon('arrow', 14) }}</a>{% endif %}
+    {% for l in p.links or [] if l.url != '#demo' %}
+      <a class="link" href="{{ l.url }}" target="_blank" rel="noopener">{{ l.label }} {{ icon('arrow', 14) }}</a>
+    {% endfor %}
+    {% if p.badge %}<span class="badge">{% if 'private' in p.badge or 'not public' in p.badge %}{{ icon('lock', 12) }} {% endif %}{{ p.badge }}</span>{% endif %}
+  </footer>
+</article>
+{%- endmacro %}

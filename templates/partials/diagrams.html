@@ -1,0 +1,53 @@
+{# Architecture diagrams as inline SVG. Colours come from CSS tokens so they work in both themes. #}
+{% macro diagram(name) -%}
+{%- if name == 'dm-agent' -%}
+<figure class="diagram">
+  <svg viewBox="0 0 760 220" role="img" aria-labelledby="dm-title">
+    <title id="dm-title">LangGraph flow of the DM sales agent: DM entry, intent, product discovery, cart, checkout, follow-up</title>
+    <defs><marker id="arr-dm" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 10 5 0 10z" class="d-arrow"/></marker></defs>
+    {% set nodes = [('DM entry', 20, 40), ('Intent', 200, 40), ('Product discovery', 380, 40), ('Cart', 380, 150), ('Checkout', 560, 150), ('Follow-up', 560, 40)] %}
+    <path class="d-edge" d="M150 65 H196" marker-end="url(#arr-dm)"/>
+    <path class="d-edge" d="M330 65 H376" marker-end="url(#arr-dm)"/>
+    <path class="d-edge" d="M445 90 V146" marker-end="url(#arr-dm)"/>
+    <path class="d-edge" d="M510 175 H556" marker-end="url(#arr-dm)"/>
+    <path class="d-edge" d="M625 150 V94" marker-end="url(#arr-dm)"/>
+    <path class="d-edge d-dashed" d="M265 90 C265 175 300 175 376 175" marker-end="url(#arr-dm)"/>
+    <text class="d-note" x="270" y="196">ready to buy</text>
+    <path class="d-edge d-dashed" d="M690 65 C730 65 730 10 400 10 C 120 10 85 20 85 36" marker-end="url(#arr-dm)"/>
+    <text class="d-note" x="150" y="29">new message</text>
+    {% for label, x, y in nodes %}
+    <g class="d-node{{ ' d-accent' if label in ('Checkout',) }}" style="--i:{{ loop.index0 }}">
+      <rect x="{{ x }}" y="{{ y }}" width="{{ 130 }}" height="50" rx="10"/>
+      <text x="{{ x + 65 }}" y="{{ y + 30 }}" text-anchor="middle">{{ label }}</text>
+    </g>
+    {% endfor %}
+  </svg>
+  <figcaption>Each stage is a node in a LangGraph state graph. Dashed edges are conditional jumps.</figcaption>
+</figure>
+{%- elif name == 'shu' -%}
+<figure class="diagram">
+  <svg viewBox="0 0 760 300" role="img" aria-labelledby="shu-title">
+    <title id="shu-title">Architecture of the SHU assistant: Next.js frontend with voice, FastAPI backend, LangGraph router to QA and PDF agents, ChromaDB, deployed with Terraform, Ansible, Docker Swarm and GitHub Actions</title>
+    <defs><marker id="arr-shu" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 10 5 0 10z" class="d-arrow"/></marker></defs>
+    <path class="d-edge" d="M150 75 H196" marker-end="url(#arr-shu)"/>
+    <path class="d-edge" d="M330 75 H376" marker-end="url(#arr-shu)"/>
+    <path class="d-edge" d="M510 62 C540 62 540 35 566 35" marker-end="url(#arr-shu)"/>
+    <path class="d-edge" d="M510 88 C540 88 540 115 566 115" marker-end="url(#arr-shu)"/>
+    <path class="d-edge" d="M630 140 V176" marker-end="url(#arr-shu)"/>
+    {% set nodes = [('Next.js UI', 'text · voice', 20, 50), ('FastAPI', 'Whisper · TTS', 200, 50), ('LangGraph router', 'Urdu / English', 380, 50), ('QA agent', '', 570, 10), ('PDF agent', '', 570, 90), ('ChromaDB', 'multimodal RAG', 570, 180)] %}
+    {% for label, sub, x, y in nodes %}
+    <g class="d-node{{ ' d-accent' if label == 'LangGraph router' }}" style="--i:{{ loop.index0 }}">
+      <rect x="{{ x }}" y="{{ y }}" width="130" height="{{ 50 if sub else 50 }}" rx="10"/>
+      <text x="{{ x + 65 }}" y="{{ y + (24 if sub else 30) }}" text-anchor="middle">{{ label }}</text>
+      {% if sub %}<text class="d-sub" x="{{ x + 65 }}" y="{{ y + 40 }}" text-anchor="middle">{{ sub }}</text>{% endif %}
+    </g>
+    {% endfor %}
+    <g class="d-band">
+      <rect x="20" y="250" width="680" height="40" rx="10"/>
+      <text x="360" y="275" text-anchor="middle">Terraform → Ansible → Docker Swarm · GitHub Actions CI/CD</text>
+    </g>
+  </svg>
+  <figcaption>Requests flow left to right; the whole stack is provisioned and deployed as code.</figcaption>
+</figure>
+{%- endif -%}
+{%- endmacro %}

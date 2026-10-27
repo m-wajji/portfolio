@@ -1,0 +1,12 @@
+- group: Agents & LLMs
+  items: [LangGraph, LangChain, RAG, ChromaDB, OpenAI API, Whisper, Google TTS / STT, Ontologies]
+- group: Computer Vision
+  items: [YOLO (Ultralytics), OpenCV, CNNs, Transfer Learning, Data Augmentation]
+- group: ML & Data
+  items: [TensorFlow, scikit-learn, Pandas, NumPy, Matplotlib, librosa, Google Colab]
+- group: Backend & DevOps
+  items: [FastAPI, Flask, REST APIs, Docker / Swarm, Terraform, Ansible, GitHub Actions, pytest]
+- group: Frontend
+  items: [Next.js, React, TypeScript, Tailwind CSS]
+- group: Languages & Databases
+  items: [Python, TypeScript, MongoDB, MySQL]

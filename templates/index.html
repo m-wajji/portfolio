@@ -1,0 +1,232 @@
+{% extends "base.html" %}
+{% from "partials/icons.html" import icon %}
+{% from "partials/project_card.html" import project_card %}
+{% from "partials/diagrams.html" import diagram %}
+
+{% block body %}
+<div class="layout">
+  <header class="intro">
+    <div class="intro-inner">
+      <p class="status"><span class="pulse" aria-hidden="true"></span>{{ profile.status }}</p>
+      <h1>{{ profile.name }}</h1>
+      <p class="role">{{ profile.role }} <span>· LLM agents & computer vision</span></p>
+      <p class="headline">{{ profile.headline }}</p>
+
+      <nav class="toc" aria-label="Sections">
+        <ul>
+          {% for id, label in [('about','About'),('work','Featured work'),('demo','Live demo'),('projects','All projects'),('services','Hire me'),('experience','Experience'),('contact','Contact')] %}
+          <li><a href="#{{ id }}" data-nav="{{ id }}"><span class="line"></span>{{ label }}</a></li>
+          {% endfor %}
+        </ul>
+      </nav>
+
+      <div class="cta">
+        <a class="btn primary" href="#demo">Try the detector</a>
+        <button class="btn" type="button" data-chat-open>Ask my agent</button>
+        <a class="btn" href="/resume/">Résumé</a>
+      </div>
+
+      <ul class="socials">
+        {% for l in profile.links %}
+        <li><a href="{{ l.url }}" {% if l.url.startswith('http') %}target="_blank" rel="noopener"{% endif %} aria-label="{{ l.label }}" title="{{ l.label }}">{{ icon(l.label, 22) }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+  </header>
+
+  <main id="main" class="content">
+
+    <section id="about" class="section" aria-label="About">
+      <h2 class="section-title">About</h2>
+      <p class="lead">{{ profile.subline }}</p>
+      <p>{{ profile.about }}</p>
+      <ul class="proof" aria-label="Highlights">
+        {% for p in profile.proof %}
+        <li class="reveal"><strong>{{ p.value }}</strong><span>{{ p.label }}</span></li>
+        {% endfor %}
+      </ul>
+    </section>
+
+    <section id="work" class="section" aria-label="Featured work">
+      <h2 class="section-title">Featured work</h2>
+      {% for p in projects if p.featured %}
+      <article class="feature reveal">
+        <a class="feature-link" href="/work/{{ p.slug }}/" aria-label="Read the {{ p.title }} case study"></a>
+        <div class="feature-media">
+          {% if p.image %}
+          <img src="/static/{{ p.image }}" alt="{{ p.image_alt }}" loading="lazy" width="1200" height="688">
+          {% elif p.diagram %}
+          {{ diagram(p.diagram) }}
+          {% endif %}
+        </div>
+        <div class="feature-body">
+          <p class="eyebrow">{{ p.org }} · {{ p.year }}</p>
+          <h3>{{ p.title }} <span class="arrow">{{ icon('arrow', 18) }}</span></h3>
+          <p>{{ p.summary }}</p>
+          {% if p.metrics %}
+          <ul class="metrics">
+            {% for m in p.metrics %}<li><strong>{{ m.value }}</strong> <span>{{ m.label }}</span></li>{% endfor %}
+          </ul>
+          {% endif %}
+          <ul class="tags">{% for s in p.stack[:6] %}<li>{{ s }}</li>{% endfor %}</ul>
+          <div class="feature-links">
+            {% for l in p.links or [] %}
+            <a class="link" href="{{ l.url }}" {% if l.url.startswith('http') %}target="_blank" rel="noopener"{% endif %}>{{ l.label }} {{ icon('arrow', 14) }}</a>
+            {% endfor %}
+            {% if p.badge %}<span class="badge">{{ icon('lock', 12) }} {{ p.badge }}</span>{% endif %}
+          </div>
+        </div>
+      </article>
+      {% endfor %}
+    </section>
+
+    <section id="demo" class="section" aria-label="Live demo">
+      <h2 class="section-title">Live demo</h2>
+      {% include "partials/detector.html" %}
+      <div class="card agent-card reveal">
+        <div>
+          <h3>Ask my agent</h3>
+          <p>A LangGraph agent that answers questions about my work: it routes your question, retrieves the relevant parts of this site with BM25, and answers with an open-weight model on Groq. Open "How I answered" under any reply to see its steps.</p>
+        </div>
+        <div class="agent-prompts">
+          {% for q in ["What did he build at Codet AI?", "How was the FYP deployed?", "Is he available for freelance work?"] %}
+          <button type="button" class="chip" data-ask-open="{{ q }}">{{ q }}</button>
+          {% endfor %}
+        </div>
+      </div>
+    </section>
+
+    <section id="projects" class="section" aria-label="All projects">
+      <h2 class="section-title">All projects</h2>
+      <div class="filters" role="group" aria-label="Filter projects">
+        <button type="button" class="chip is-active" data-filter="*" aria-pressed="true">All <span>{{ projects | length }}</span></button>
+        {% for t in project_tags %}
+        <button type="button" class="chip" data-filter="{{ t }}" aria-pressed="false">{{ t }}</button>
+        {% endfor %}
+      </div>
+      <div class="grid">
+        {% for p in projects %}{{ project_card(p) }}{% endfor %}
+      </div>
+    </section>
+
+    <section id="services" class="section" aria-label="What I can build for you">
+      <h2 class="section-title">What I can build for you</h2>
+      <p>Available for freelance work alongside my role at Codet AI.</p>
+      <div class="services">
+        {% for s in services %}
+        <article class="card service reveal">
+          <h3>{{ s.title }}</h3>
+          <p>{{ s.text }}</p>
+          <ul class="tags">{% for t in s.stack %}<li>{{ t }}</li>{% endfor %}</ul>
+          <a class="link" href="#contact" data-topic="{{ s.title }}">Let's talk {{ icon('arrow', 14) }}</a>
+        </article>
+        {% endfor %}
+      </div>
+    </section>
+
+    <section id="experience" class="section" aria-label="Experience">
+      <h2 class="section-title">Experience</h2>
+      <ol class="timeline">
+        {% for e in experience %}
+        <li class="reveal">
+          <p class="period">{{ e.period }}</p>
+          <div>
+            <h3>{{ e.role }} <span>· {{ e.org }}</span></h3>
+            <ul>{% for pt in e.points %}<li>{{ pt }}</li>{% endfor %}</ul>
+            <ul class="tags">{% for s in e.stack %}<li>{{ s }}</li>{% endfor %}</ul>
+          </div>
+        </li>
+        {% endfor %}
+        {% for ed in profile.education %}
+        <li class="reveal">
+          <p class="period">{{ ed.period }}</p>
+          <div><h3>{{ ed.degree }} <span>· {{ ed.school }}</span></h3></div>
+        </li>
+        {% endfor %}
+      </ol>
+
+      <h3 class="sub-title">Skills</h3>
+      <div class="skills">
+        {% for g in skills %}
+        <div class="skill-group reveal">
+          <h4>{{ g.group }}</h4>
+          <ul class="tags">{% for s in g['items'] %}<li>{{ s }}</li>{% endfor %}</ul>
+        </div>
+        {% endfor %}
+      </div>
+
+      <h3 class="sub-title">Certifications</h3>
+      <ul class="certs">
+        {% for c in profile.certifications %}
+        <li>
+          {% if c.url %}<a href="{{ c.url }}" target="_blank" rel="noopener">{{ c.title }} {{ icon('arrow', 14) }}</a>{% else %}{{ c.title }}{% endif %}
+          <span>{{ c.issuer }}</span>
+        </li>
+        {% endfor %}
+      </ul>
+
+      <h3 class="sub-title">How I work</h3>
+      <div class="principles">
+        {% for p in profile.principles %}
+        <div class="reveal"><h4>{{ p.title }}</h4><p>{{ p.text }}</p></div>
+        {% endfor %}
+      </div>
+    </section>
+
+    <section id="contact" class="section contact" aria-label="Contact">
+      <h2 class="section-title">Contact</h2>
+      <p class="big">Have a role, a project or a question? <br>Send me a message — it lands straight in my inbox.</p>
+
+      <form class="contact-form card" id="contact-form" data-key="{{ profile.contact_form_key }}" data-email="{{ profile.email }}" novalidate>
+        <div class="field-row">
+          <div class="field">
+            <label for="cf-name">Name</label>
+            <input id="cf-name" name="name" type="text" autocomplete="name" maxlength="100" required>
+          </div>
+          <div class="field">
+            <label for="cf-email">Email</label>
+            <input id="cf-email" name="email" type="email" autocomplete="email" maxlength="150" required>
+          </div>
+        </div>
+        <div class="field">
+          <label for="cf-topic">What's it about?</label>
+          <select id="cf-topic" name="topic">
+            {% for t in ['A full-time or contract role'] + services | map(attribute='title') | list + ['Something else'] %}
+            <option>{{ t }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="field">
+          <label for="cf-message">Message</label>
+          <textarea id="cf-message" name="message" rows="5" maxlength="4000" required placeholder="A few lines about the role or project, timeline and budget if you have one."></textarea>
+        </div>
+        <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <div class="form-foot">
+          <button class="btn primary" type="submit">Send message</button>
+          <p class="form-status" id="cf-status" role="status" aria-live="polite"></p>
+        </div>
+      </form>
+
+      <div class="contact-actions">
+        <span>Prefer email?</span>
+        <a class="link" href="mailto:{{ profile.email }}">{{ profile.email }}</a>
+        <button class="btn" type="button" data-copy="{{ profile.email }}">Copy</button>
+      </div>
+      <ul class="socials inline">
+        {% for l in profile.links if l.url.startswith('http') %}
+        <li><a href="{{ l.url }}" target="_blank" rel="noopener">{{ icon(l.label, 18) }} {{ l.label }}</a></li>
+        {% endfor %}
+      </ul>
+    </section>
+
+    <footer class="site-footer">
+      <p>Built in Python (Jinja2 static build) by {{ profile.name }}. The detector runs entirely in your browser.</p>
+      <p>Dental images: Aga Khan University intraoral dataset, <i>Scientific Data</i> (2025), CC BY 4.0.</p>
+    </footer>
+  </main>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/detector.js?v={{ build_id }}" defer></script>
+{% endblock %}

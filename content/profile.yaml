@@ -1,0 +1,70 @@
+name: Muhammad Wajahat
+short_name: Wajahat
+role: AI Engineer
+headline: I build LLM agents and computer vision systems — and ship them.
+subline: >-
+  AI Product Engineer at Codet AI, building conversational sales agents that take a
+  customer from first DM to checkout. Recently: dental caries detection at
+  0.94 mAP50 on unseen patients.
+status: AI Product Engineer @ Codet AI · Karachi · Open to remote & freelance
+location: Karachi, Pakistan
+email: muhammad.wajahat221@gmail.com
+# Web3Forms access key (free, from web3forms.com). It's meant to be public: it can only send to your inbox.
+# Leave empty and the form falls back to opening the visitor's email app.
+contact_form_key: "e6e39b1b-db50-4f5d-ba2a-42d76e8ace96"
+site_url: https://muhammadwajahat.vercel.app
+description: >-
+  Muhammad Wajahat — AI Engineer building LangGraph agents, RAG assistants and
+  computer vision systems. Based in Karachi, open to remote and freelance work.
+links:
+  - label: GitHub
+    url: https://github.com/m-wajji
+  - label: LinkedIn
+    url: https://www.linkedin.com/in/muhammad-wajahat1
+  - label: Email
+    url: mailto:muhammad.wajahat221@gmail.com
+
+about: >-
+  Computer Science graduate (Salim Habib University, 2025) working where language
+  models and computer vision meet real products. I design agents with LangGraph,
+  ground them with retrieval, and deploy them with Docker and CI/CD. On the vision
+  side I train and evaluate detectors with the care that medical data deserves.
+  I'm keen to apply multimodal AI to healthcare and real-world products.
+
+proof:
+  - value: "0.942"
+    label: mAP50 on unseen patients
+  - value: "0.928"
+    label: recall at screening threshold
+  - value: "2,227"
+    label: dentist-annotated images
+  - value: DM → checkout
+    label: sales agent in production
+  - value: Urdu / English
+    label: bilingual voice agent
+  - value: Terraform + Ansible
+    label: CI/CD-deployed FYP
+
+principles:
+  - title: Decisive
+    text: I get a working version in front of people fast, then improve it with real feedback.
+  - title: Steady
+    text: I own what I ship after launch — monitoring, fixing, and iterating, not just demoing.
+  - title: Careful with data
+    text: Split by patient, not by image. Pick metrics that match the real cost of a mistake.
+
+certifications:
+  - title: Introduction to LangGraph
+    issuer: LangChain Academy
+    url: ""
+  - title: Social Media Marketing
+    issuer: HubSpot Academy
+    url: https://app-na2.hubspot.com/academy/achievements/g9b6khjl/en/1/wajahat-arshad/social-media-marketing
+
+education:
+  - degree: BS Computer Science
+    school: Salim Habib University, Karachi
+    period: 2021 – 2025
+  - degree: Intermediate, Pre-Engineering
+    school: The Citizen Foundation College
+    period: 2019 – 2021

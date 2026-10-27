@@ -1,0 +1,120 @@
+# Every project from the resume. `featured: true` ones get a /work/<slug> case study.
+# badge: shown when there is no public repo.
+
+- slug: dental-caries-detection
+  title: Dental Caries Detection
+  org: Personal project
+  year: 2026
+  featured: true
+  tags: [Vision, Healthcare]
+  summary: >-
+    YOLO26 detector that finds tooth decay in intraoral phone photos. Trained on
+    2,227 dentist-annotated images, split by patient to prevent leakage, with a
+    screening threshold tuned for recall.
+  metrics:
+    - {value: "0.942", label: mAP50}
+    - {value: "0.928", label: recall @ 0.4}
+    - {value: "0.887", label: precision}
+  stack: [YOLO26, Ultralytics, OpenCV, Streamlit, pytest, Colab T4]
+  image: img/dental-predictions.jpg
+  image_alt: Grid of intraoral photos with caries detections drawn as boxes and confidence scores
+  links:
+    - {label: Code, url: https://github.com/m-wajji/dental-caries-yolo}
+    - {label: Live demo, url: "#demo"}
+
+- slug: dm-sales-agent
+  title: Social DM Sales Agent
+  org: Codet AI
+  year: 2025 – now
+  featured: true
+  tags: [Agents, GTM]
+  summary: >-
+    A LangGraph conversational agent that sells inside social media DMs — it takes
+    a customer from the first message through product discovery and cart to
+    checkout, as part of Codet AI's go-to-market platform.
+  stack: [LangGraph, LangChain, LLMs, Python, TypeScript, FastAPI]
+  diagram: dm-agent
+  badge: Company work · private
+
+- slug: shu-intelligent-assistant
+  title: The Intelligent Assistant of SHU
+  org: Final Year Project · Salim Habib University
+  year: 2025
+  featured: true
+  tags: [Agents, Vision, DevOps]
+  summary: >-
+    Bilingual (Urdu / English) agentic assistant with voice and text input. A QA
+    agent answers university queries and a PDF agent retrieves from documents over
+    a multimodal RAG pipeline — deployed with Terraform, Ansible, Docker Swarm and
+    GitHub Actions.
+  stack: [LangGraph, LangChain, ChromaDB, YOLOv11, OpenAI API, Whisper, FastAPI, Next.js, Terraform, Ansible, Docker]
+  diagram: shu
+  links:
+    - {label: Code, url: https://github.com/m-wajji/the_intelligent_assistant_of_shu-deployed}
+
+- slug: ota-commands-automation
+  title: OTA Commands Automation
+  org: TPL Trakker
+  year: 2025
+  tags: [Automation]
+  summary: >-
+    TPL Trakker's GPS trackers are configured with over-the-air (OTA) commands that
+    operators used to send by hand, device by device. I built a FastAPI service that
+    automates sending these commands to the fleet over time.
+  stack: [Python, FastAPI]
+  badge: Company work · private
+
+- slug: baby-cry-analyzer
+  title: Baby Cry Analyzer
+  org: Team project
+  tags: [Audio, Classic ML]
+  summary: >-
+    Classifies an infant's cry into five needs — hungry, tired, belly pain, burping,
+    discomfort — from a 56-value audio fingerprint (40 MFCCs plus chroma, spectral
+    and energy features). Minority classes balanced with audio augmentation; a
+    Random Forest served by Flask to a Next.js frontend.
+  metrics:
+    - {value: "72%", label: accuracy · 5 classes}
+  lesson: >-
+    Augmenting before splitting lets variants of the same cry land in train and
+    test and inflates the score — the reason I split by patient in the dental project.
+  stack: [librosa, scikit-learn, Flask, Next.js, Tailwind]
+  links:
+    - {label: Code, url: https://github.com/waliyasuleman/baby-cry-analyzer}
+  badge: Team project
+
+- slug: whats-cooking
+  title: What's Cooking
+  org: Personal project
+  tags: [Classic ML, NLP]
+  summary: >-
+    Predicts a dish's cuisine from its ingredient list using a logistic regression
+    written from scratch rather than imported — ingredient text preprocessing,
+    vectorisation and a hand-built training loop.
+  stack: [Python, NumPy, Pandas, scikit-learn, Matplotlib, Seaborn]
+  links:
+    - {label: Code, url: https://github.com/m-wajji/Whats-s_Cooking_ML}
+
+- slug: credit-card-fraud-detection
+  title: Credit Card Fraud Detection
+  org: Personal project
+  tags: [Classic ML]
+  summary: >-
+    Flags fraudulent card transactions in a public, anonymised dataset where fraud
+    is under 1% of records. Handles extreme class imbalance with resampling and
+    class weights, and judges models by precision, recall and PR-AUC — because 99%
+    accuracy can mean catching no fraud at all.
+  stack: [Python, Pandas, scikit-learn, Matplotlib]
+  badge: Code not public
+
+- slug: diabetes-prediction
+  title: Diabetes Prediction
+  org: Personal project
+  tags: [Classic ML, Healthcare]
+  summary: >-
+    Predicts diabetes risk from clinical measurements such as glucose, blood
+    pressure, BMI, insulin and age. Cleans physiologically impossible zero values,
+    scales features and compares classifiers with a focus on recall — a missed
+    diagnosis costs more than a false alarm.
+  stack: [Python, Pandas, scikit-learn]
+  badge: Code not public

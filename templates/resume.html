@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% from "partials/icons.html" import icon %}
+{% block title %}Résumé — {{ profile.name }}{% endblock %}
+{% block body_class %}page-resume{% endblock %}
+
+{% block body %}
+<main id="main" class="article resume">
+  <div class="resume-bar no-print">
+    <a class="back" href="/">{{ icon('back', 16) }} Home</a>
+    <button class="btn primary" type="button" onclick="window.print()">Download PDF</button>
+  </div>
+
+  <header class="resume-head">
+    <h1>{{ profile.name }}</h1>
+    <p class="role">{{ profile.role }} · LLM agents & computer vision</p>
+    <p class="resume-contact">
+      {{ profile.location }} ·
+      <a href="mailto:{{ profile.email }}">{{ profile.email }}</a>
+      {% for l in profile.links if l.url.startswith('http') %} · <a href="{{ l.url }}">{{ l.url | replace('https://', '') | replace('www.', '') }}</a>{% endfor %}
+      · <a href="{{ profile.site_url }}">{{ profile.site_url | replace('https://', '') }}</a>
+    </p>
+  </header>
+
+  <section>
+    <h2>Summary</h2>
+    <p>{{ profile.about }}</p>
+  </section>
+
+  <section>
+    <h2>Experience</h2>
+    {% for e in experience %}
+    <div class="r-item">
+      <div class="r-row"><h3>{{ e.role }} · {{ e.org }}</h3><span>{{ e.period }}</span></div>
+      <ul>{% for pt in e.points %}<li>{{ pt }}</li>{% endfor %}</ul>
+    </div>
+    {% endfor %}
+  </section>
+
+  <section>
+    <h2>Projects</h2>
+    {% for p in projects %}
+    <div class="r-item">
+      <div class="r-row"><h3>{{ p.title }}{% if p.org and p.org != 'Personal project' %} · {{ p.org }}{% endif %}</h3>
+        {% for l in p.links or [] if l.url.startswith('http') %}<a href="{{ l.url }}">{{ l.url | replace('https://github.com/', 'github/') }}</a>{% endfor %}</div>
+      <p>{{ p.summary }}{% if p.metrics %} <strong>{% for m in p.metrics %}{{ m.value }} {{ m.label }}{{ '; ' if not loop.last }}{% endfor %}.</strong>{% endif %}</p>
+    </div>
+    {% endfor %}
+  </section>
+
+  <section>
+    <h2>Skills</h2>
+    {% for g in skills %}<p><strong>{{ g.group }}:</strong> {{ g['items'] | join(', ') }}</p>{% endfor %}
+  </section>
+
+  <section>
+    <h2>Education</h2>
+    {% for ed in profile.education %}
+    <div class="r-row"><h3>{{ ed.degree }} · {{ ed.school }}</h3><span>{{ ed.period }}</span></div>
+    {% endfor %}
+  </section>
+
+  <section>
+    <h2>Certifications</h2>
+    <p>{% for c in profile.certifications %}{{ c.title }} — {{ c.issuer }}{{ ' · ' if not loop.last }}{% endfor %}</p>
+  </section>
+</main>
+{% endblock %}

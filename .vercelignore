@@ -1,0 +1,8 @@
+.venv*
+dental_images
+*.pdf
+*.pt
+DISC_result.png
+PORTFOLIO_PLAN.md
+tests
+dev.py

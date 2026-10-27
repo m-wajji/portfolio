@@ -1,0 +1,22 @@
+# secrets
+.env
+.env.*
+!.env.example
+
+# python
+__pycache__/
+*.pyc
+.venv*/
+venv/
+
+# build output
+dist/
+.vercel/
+
+# private source files
+dental_images/
+*.pt
+
+# private strings the privacy test checks for
+tests/private_terms.txt
+PORTFOLIO_PLAN.md

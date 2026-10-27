@@ -1,0 +1,18 @@
+- role: AI Product Engineer
+  org: Codet AI
+  period: Dec 2025 – Present
+  location: Karachi
+  points:
+    - Building a LangGraph conversational sales agent for social media DMs that handles the full customer lifecycle — from first message, through product discovery and cart, to checkout.
+    - Modelling the conversation as a LangGraph state graph, with tools for product lookup, cart and checkout.
+    - Building additional AI agents for the platform's go-to-market workflows.
+  stack: [LangGraph, LangChain, LLMs, Python, TypeScript, FastAPI]
+
+- role: AI Intern
+  org: TPL Trakker
+  period: Jul 2025 – Oct 2025
+  location: Karachi
+  points:
+    - Automated the over-the-air (OTA) commands sent to GPS tracker devices, which operators previously sent by hand, device by device.
+    - Built the automation as a FastAPI service so commands are dispatched to the fleet over time without manual work.
+  stack: [Python, FastAPI, Automation]

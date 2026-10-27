@@ -1,0 +1,15 @@
+- title: AI sales & DM agents
+  text: >-
+    Agents that answer customers on Instagram, WhatsApp or your website, recommend
+    products, build a cart and hand over to checkout — or to a human when needed.
+  stack: [LangGraph, Tool calling, CRM / store APIs]
+- title: RAG assistants & document chatbots
+  text: >-
+    Assistants grounded in your own documents and data, in English and Urdu, with
+    text or voice input, deployed behind a clean API.
+  stack: [RAG, ChromaDB, Whisper, FastAPI]
+- title: Computer vision pipelines
+  text: >-
+    From messy images to a deployed detector: annotation cleanup, leak-free splits,
+    YOLO training, threshold tuning and a usable app.
+  stack: [YOLO, OpenCV, ONNX, Streamlit / Web]
