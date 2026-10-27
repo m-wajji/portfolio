@@ -1,7 +1,7 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "installCommand": "python3 -m pip install -r requirements-build.txt",
-  "buildCommand": "python3 build.py",
+  "installCommand": "python3 -m venv /tmp/buildenv && /tmp/buildenv/bin/pip install -r requirements-build.txt",
+  "buildCommand": "/tmp/buildenv/bin/python build.py",
   "outputDirectory": "dist",
   "functions": {
     "api/chat.py": {
